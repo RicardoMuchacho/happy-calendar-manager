@@ -24,6 +24,17 @@ export default {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
+        ocean: {
+          DEFAULT: "#0EA5E9",
+          dark: "#0369A1",
+          light: "#38BDF8",
+        },
+        boats: {
+          1: "#EC4899",
+          2: "#8B5CF6",
+          3: "#F97316",
+          4: "#059669",
+        },
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
