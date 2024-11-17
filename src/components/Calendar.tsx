@@ -10,8 +10,8 @@ interface CalendarProps {
 }
 
 export const Calendar = ({ bookings, onDateSelect }: CalendarProps) => {
-  const handleDateSelect = useCallback((info: { date: Date }) => {
-    onDateSelect(info.date);
+  const handleDateSelect = useCallback((info: { dateStr: string }) => {
+    onDateSelect(new Date(info.dateStr));
   }, [onDateSelect]);
 
   const events = bookings.map((booking) => ({
@@ -29,7 +29,7 @@ export const Calendar = ({ bookings, onDateSelect }: CalendarProps) => {
         plugins={[dayGridPlugin]}
         initialView="dayGridMonth"
         events={events}
-        dateClick={(info) => handleDateSelect(info)}
+        dateClick={handleDateSelect}
         headerToolbar={{
           left: "prev,next today",
           center: "title",

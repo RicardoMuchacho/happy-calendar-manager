@@ -5,6 +5,7 @@ export interface Booking {
   customerName: string;
   phoneNumber: string;
   notes?: string;
+  deleted?: boolean;
 }
 
 export interface Boat {

@@ -37,6 +37,13 @@ export const BookingModal = ({
     onClose();
   };
 
+  const handleDelete = () => {
+    if (booking && window.confirm("Are you sure you want to delete this booking?")) {
+      onSave({ ...booking, deleted: true });
+      onClose();
+    }
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-[425px]">
@@ -98,6 +105,11 @@ export const BookingModal = ({
             />
           </div>
           <div className="flex justify-end space-x-2">
+            {booking && (
+              <Button type="button" variant="destructive" onClick={handleDelete}>
+                Delete
+              </Button>
+            )}
             <Button variant="outline" onClick={onClose}>
               Cancel
             </Button>
