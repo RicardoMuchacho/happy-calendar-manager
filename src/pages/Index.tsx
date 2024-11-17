@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "@/components/Header";
 import { Calendar } from "@/components/Calendar";
 import { BookingModal } from "@/components/BookingModal";
@@ -13,6 +13,24 @@ const Index = () => {
   const [selectedBooking, setSelectedBooking] = useState<Booking>();
   const { toast } = useToast();
 
+  // Load bookings from localStorage on component mount
+  useEffect(() => {
+    const savedBookings = localStorage.getItem("bookings");
+    if (savedBookings) {
+      const parsedBookings = JSON.parse(savedBookings).map((booking: any) => ({
+        ...booking,
+        startTime: new Date(booking.startTime),
+        endTime: new Date(booking.endTime),
+      }));
+      setBookings(parsedBookings);
+    }
+  }, []);
+
+  // Save bookings to localStorage whenever they change
+  useEffect(() => {
+    localStorage.setItem("bookings", JSON.stringify(bookings));
+  }, [bookings]);
+
   const handleDateSelect = (date: Date) => {
     setSelectedDate(date);
     setSelectedBooking(undefined);
@@ -20,10 +38,12 @@ const Index = () => {
   };
 
   const handleSaveBooking = (bookingData: Partial<Booking>) => {
+    console.log("Saving booking:", bookingData);
+    
     if (selectedBooking) {
       // Edit existing booking
       setBookings(bookings.map((b) => 
-        b.id === selectedBooking.id ? { ...b, ...bookingData } : b
+        b.id === selectedBooking.id ? { ...b, ...bookingData } as Booking : b
       ));
       toast({
         title: "Booking updated",

@@ -26,6 +26,7 @@ export const BookingModal = ({
       startTime: selectedDate,
       endTime: selectedDate,
       customerName: "",
+      phoneNumber: "",
       notes: "",
       boatId: 1,
     }
@@ -64,6 +65,19 @@ export const BookingModal = ({
               id="customerName"
               value={formData.customerName}
               onChange={(e) => setFormData({ ...formData, customerName: e.target.value })}
+              required
+            />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="phoneNumber">Phone Number</Label>
+            <Input
+              id="phoneNumber"
+              value={formData.phoneNumber}
+              onChange={(e) => setFormData({ ...formData, phoneNumber: e.target.value })}
+              required
+              type="tel"
+              pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+              placeholder="123-456-7890"
             />
           </div>
           <div className="space-y-2">
@@ -73,6 +87,7 @@ export const BookingModal = ({
               type="datetime-local"
               value={formData.startTime ? format(new Date(formData.startTime), "yyyy-MM-dd'T'HH:mm") : ""}
               onChange={(e) => setFormData({ ...formData, startTime: new Date(e.target.value) })}
+              required
             />
           </div>
           <div className="space-y-2">
@@ -82,6 +97,7 @@ export const BookingModal = ({
               type="datetime-local"
               value={formData.endTime ? format(new Date(formData.endTime), "yyyy-MM-dd'T'HH:mm") : ""}
               onChange={(e) => setFormData({ ...formData, endTime: new Date(e.target.value) })}
+              required
             />
           </div>
           <div className="space-y-2">

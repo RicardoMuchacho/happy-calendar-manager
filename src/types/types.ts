@@ -4,6 +4,7 @@ export interface Booking {
   startTime: Date;
   endTime: Date;
   customerName: string;
+  phoneNumber: string;
   notes?: string;
 }
 
