@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
+import interactionPlugin from "@fullcalendar/interaction";
 import { Booking } from "@/types/types";
 import { format } from "date-fns";
 
@@ -10,8 +11,8 @@ interface CalendarProps {
 }
 
 export const Calendar = ({ bookings, onDateSelect }: CalendarProps) => {
-  const handleDateSelect = useCallback((info: { dateStr: string }) => {
-    onDateSelect(new Date(info.dateStr));
+  const handleDateSelect = useCallback((info: { start: Date }) => {
+    onDateSelect(info.start);
   }, [onDateSelect]);
 
   const events = bookings.map((booking) => ({
@@ -26,10 +27,11 @@ export const Calendar = ({ bookings, onDateSelect }: CalendarProps) => {
   return (
     <div className="bg-white rounded-lg shadow p-4">
       <FullCalendar
-        plugins={[dayGridPlugin]}
+        plugins={[dayGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
         events={events}
-        dateClick={handleDateSelect}
+        selectable={true}
+        select={handleDateSelect}
         headerToolbar={{
           left: "prev,next today",
           center: "title",
