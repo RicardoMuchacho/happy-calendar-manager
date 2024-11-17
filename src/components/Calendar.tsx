@@ -8,12 +8,20 @@ import { format } from "date-fns";
 interface CalendarProps {
   bookings: Booking[];
   onDateSelect: (date: Date) => void;
+  onEventClick?: (booking: Booking) => void;
 }
 
-export const Calendar = ({ bookings, onDateSelect }: CalendarProps) => {
+export const Calendar = ({ bookings, onDateSelect, onEventClick }: CalendarProps) => {
   const handleDateSelect = useCallback((info: { start: Date }) => {
     onDateSelect(info.start);
   }, [onDateSelect]);
+
+  const handleEventClick = useCallback((info: { event: any }) => {
+    const booking = bookings.find(b => b.id === info.event.id);
+    if (booking && onEventClick) {
+      onEventClick(booking);
+    }
+  }, [bookings, onEventClick]);
 
   const events = bookings.map((booking) => ({
     id: booking.id,
@@ -32,6 +40,7 @@ export const Calendar = ({ bookings, onDateSelect }: CalendarProps) => {
         events={events}
         selectable={true}
         select={handleDateSelect}
+        eventClick={handleEventClick}
         headerToolbar={{
           left: "prev,next today",
           center: "title",

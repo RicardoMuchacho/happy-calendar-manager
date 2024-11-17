@@ -13,7 +13,6 @@ const Index = () => {
   const [selectedBooking, setSelectedBooking] = useState<Booking>();
   const { toast } = useToast();
 
-  // Load bookings from localStorage on component mount
   useEffect(() => {
     const savedBookings = localStorage.getItem("bookings");
     if (savedBookings) {
@@ -25,7 +24,6 @@ const Index = () => {
     }
   }, []);
 
-  // Save bookings to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("bookings", JSON.stringify(bookings));
   }, [bookings]);
@@ -36,10 +34,23 @@ const Index = () => {
     setIsModalOpen(true);
   };
 
+  const handleEventClick = (booking: Booking) => {
+    setSelectedBooking(booking);
+    setSelectedDate(new Date(booking.date));
+    setIsModalOpen(true);
+  };
+
   const handleSaveBooking = (bookingData: Partial<Booking>) => {
     console.log("Saving booking:", bookingData);
     
-    if (selectedBooking) {
+    if (bookingData.deleted) {
+      // Handle deletion
+      setBookings(bookings.filter(b => b.id !== bookingData.id));
+      toast({
+        title: "Booking deleted",
+        description: "The booking has been successfully deleted.",
+      });
+    } else if (selectedBooking) {
       // Edit existing booking
       setBookings(bookings.map((b) => 
         b.id === selectedBooking.id ? { ...b, ...bookingData } as Booking : b
@@ -68,7 +79,11 @@ const Index = () => {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-6">
           <BoatLegend />
-          <Calendar bookings={bookings} onDateSelect={handleDateSelect} />
+          <Calendar 
+            bookings={bookings} 
+            onDateSelect={handleDateSelect} 
+            onEventClick={handleEventClick}
+          />
         </div>
         <BookingModal
           isOpen={isModalOpen}
