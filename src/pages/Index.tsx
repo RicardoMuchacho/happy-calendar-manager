@@ -19,8 +19,7 @@ const Index = () => {
     if (savedBookings) {
       const parsedBookings = JSON.parse(savedBookings).map((booking: any) => ({
         ...booking,
-        startTime: new Date(booking.startTime),
-        endTime: new Date(booking.endTime),
+        date: new Date(booking.date),
       }));
       setBookings(parsedBookings);
     }

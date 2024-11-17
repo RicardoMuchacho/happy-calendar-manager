@@ -31,7 +31,7 @@ export const Calendar = ({ bookings, onDateSelect }: CalendarProps) => {
   const previousMonth = () => setCurrentMonth(subMonths(currentMonth, 1));
 
   const getDayBookings = (date: Date) => {
-    return bookings.filter((booking) => isSameDay(new Date(booking.startTime), date));
+    return bookings.filter((booking) => isSameDay(new Date(booking.date), date));
   };
 
   return (
@@ -56,7 +56,7 @@ export const Calendar = ({ bookings, onDateSelect }: CalendarProps) => {
           </div>
         ))}
 
-        {days.map((day, dayIdx) => {
+        {days.map((day) => {
           const dayBookings = getDayBookings(day);
           
           return (

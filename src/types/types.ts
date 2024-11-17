@@ -1,8 +1,7 @@
 export interface Booking {
   id: string;
   boatId: number;
-  startTime: Date;
-  endTime: Date;
+  date: Date;
   customerName: string;
   phoneNumber: string;
   notes?: string;

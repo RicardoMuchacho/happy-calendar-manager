@@ -23,8 +23,7 @@ export const BookingModal = ({
 }: BookingModalProps) => {
   const [formData, setFormData] = useState<Partial<Booking>>(
     booking || {
-      startTime: selectedDate,
-      endTime: selectedDate,
+      date: selectedDate,
       customerName: "",
       phoneNumber: "",
       notes: "",
@@ -81,22 +80,12 @@ export const BookingModal = ({
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="startTime">Start Time</Label>
+            <Label htmlFor="date">Date</Label>
             <Input
-              id="startTime"
-              type="datetime-local"
-              value={formData.startTime ? format(new Date(formData.startTime), "yyyy-MM-dd'T'HH:mm") : ""}
-              onChange={(e) => setFormData({ ...formData, startTime: new Date(e.target.value) })}
-              required
-            />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="endTime">End Time</Label>
-            <Input
-              id="endTime"
-              type="datetime-local"
-              value={formData.endTime ? format(new Date(formData.endTime), "yyyy-MM-dd'T'HH:mm") : ""}
-              onChange={(e) => setFormData({ ...formData, endTime: new Date(e.target.value) })}
+              id="date"
+              type="date"
+              value={formData.date ? format(new Date(formData.date), "yyyy-MM-dd") : ""}
+              onChange={(e) => setFormData({ ...formData, date: new Date(e.target.value) })}
               required
             />
           </div>
