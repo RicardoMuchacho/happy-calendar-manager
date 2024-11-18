@@ -43,7 +43,7 @@ export const BookingModal = ({
         }
       );
     }
-  }, [isOpen]);
+  }, [isOpen, booking, selectedDate]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -60,7 +60,7 @@ export const BookingModal = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="w-[95vw] max-w-[425px] rounded-lg p-4 md:w-full">
         <DialogHeader>
           <DialogTitle>{booking ? "Edit Booking" : "New Booking"}</DialogTitle>
         </DialogHeader>
