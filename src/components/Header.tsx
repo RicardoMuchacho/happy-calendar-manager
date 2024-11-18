@@ -5,7 +5,7 @@ export const Header = () => {
     <header className="bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center">
-          <img width={70} src="../../public/logo.png" alt="happy playero logo" />
+          <img width={70} src="/logo.png" alt="happy playero logo" />
           {/* <Anchor className="h-8 w-8 text-ocean" /> */}
           <span className="ml-1 text-xl font-semibold text-gray-900">Happy Playero</span>
         </div>
